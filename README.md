@@ -151,7 +151,7 @@ You can verify the proper creation of the RPM file with:
 
 You can also download a pre-generated RPM for the RHEL 6 OS family (64 bit):
 
-* [supervisor-3.0.el6.x86_64.rpm](https://yum.miguno.com/bigdata/redhat/6/x86_64/supervisor-3.0.el6.x86_64.rpm)
+* [supervisor-3.0.el6.x86_64.rpm](https://s3.amazonaws.com/yum.miguno.com/bigdata/redhat/6/x86_64/supervisor-3.0.el6.x86_64.rpm)
 
 
 <a name="contributing"></a>
