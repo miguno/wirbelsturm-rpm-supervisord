@@ -90,13 +90,13 @@ _that.  We confirmed that the files of the existing RPM we are using to augment 
     # Get an existing supervisord 3.x that is compatible with RHEL/CentOS 6, and unpack it locally.
     $ mkdir existing-rpm
     $ cd existing-rpm/
-    $ wget http://repos.fedorapeople.org/repos/rmarko/supervisor/epel-6/noarch/supervisor-3.0-0.5.a10.el6.noarch.rpm
-    $ rpm2cpio supervisor-3.0-0.5.a10.el6.noarch.rpm | cpio -idmv
+    $ wget ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/presbrey:/py/EL6/noarch/supervisor-3.0-13.1.noarch.rpm
+    $ rpm2cpio supervisor-3.0-13.1.noarch.rpm | cpio -idmv
 
     # Understand which pre/post installation steps are required by the supervisord RPM for RHEL/CentOS/Fedora.
     # We will manually create the corresponding scripts and instruct fpm to include those.  For instance, the
     # 'postinstall' snippet will be added to our RPM file via fpm's '--after-install' option.
-    $ rpm -qp --scripts supervisor-3.0-0.5.a10.el6.noarch.rpm
+    $ rpm -qp --scripts supervisor-3.0-13.1.noarch.rpm
     postinstall scriptlet (using /bin/sh):
     /sbin/chkconfig --add supervisord || :
     preuninstall scriptlet (using /bin/sh):
@@ -118,18 +118,20 @@ _that.  We confirmed that the files of the existing RPM we are using to augment 
     $ cd our-rpm/
 
     # Step 1: Build a first draft of our rpm by pulling the latest supervisord sources from PyPI
-    $ ../supervisord-rpm-step1.sh
+    $ ../supervisord-rpm-step1.sh   # Creates e.g. 'supervisor-3.0.el6.noarch.rpm'
     # Extract the contents locally
-    $ rpm2cpio supervisor-3.0b2.el6.x86_64.rpm | cpio -idmv
+    $ rpm2cpio supervisor-3.0.el6.noarch.rpm | cpio -idmv
     # Copy additional values (e.g. init scripts) from the existing RPM over to our local decompressed RPM
     $ cp -r ../existing-rpm/etc ../existing-rpm/var .
+    # Copy docs and, very importantly, the LICENSE of supervisord
+    $ cp -r ../existing-rpm/usr/share ./usr
     # Delete the draft RPM
-    $ rm supervisor-3.0b2.el6.x86_64.rpm
+    $ rm supervisor-3.0.el6.noarch.rpm
     # Step 2: Repackage the updated directory tree, which contains the latest supervisord code (from PyPI) plus the
     # additional OS helper files from the existing RPM.
-    $ ../supervisord-rpm-step2.sh
+    $ ../supervisord-rpm-step2.sh  # update version string etc. if needed
 
-    => supervisor-3.0b2.el6.x86_64.rpm (in the rpm-scripts/supervisord/ base directory)
+    => supervisor-3.0.el6.x86_64.rpm (fpm will tell you the full path to the file)
 
 
 <a name="verify"></a>
@@ -149,7 +151,7 @@ You can verify the proper creation of the RPM file with:
 
 You can also download a pre-generated RPM for the RHEL 6 OS family (64 bit):
 
-* [supervisor-3.0b2.el6.x86_64.rpm](https://yum.miguno.com/bigdata/redhat/6/x86_64/supervisor-3.0b2.el6.x86_64.rpm)
+* [supervisor-3.0.el6.x86_64.rpm](https://yum.miguno.com/bigdata/redhat/6/x86_64/supervisor-3.0.el6.x86_64.rpm)
 
 
 <a name="contributing"></a>
