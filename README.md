@@ -5,6 +5,8 @@ Builds an RPM of [supervisord v3.x](http://www.supervisord.org/), using [fpm](ht
 Unfortunately both RHEL 6 as well as EPEL for RHEL 6 only ship with a very outdated supervisor version 2.x, but we
 really want version 3.x.  The scripts in this project help to close that gap.
 
+The RPM created with this code is used by [Wirbelsturm](https://github.com/miguno/wirbelsturm).
+
 ---
 
 Table of Contents
