@@ -22,6 +22,7 @@ MY_DIR_ABS_PATH=`readlink -f $MY_DIR`
 fpm -s dir -t rpm -a all \
     -n supervisor \
     -v 3.0 \
+    --iteration "1.miguno" \
     --maintainer "$MAINTAINER" \
     --url http://supervisord.org/ \
     --vendor Supervisord.org \
